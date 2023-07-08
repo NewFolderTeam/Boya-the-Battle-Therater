@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>selection.jpg</file>
+        <file>cgk.jpg</file>
+        <file>dby.jpg</file>
+        <file>dj.jpg</file>
+        <file>down.jpg</file>
+        <file>images.qrc</file>
+        <file>left.jpg</file>
+        <file>mtw3.jpg</file>
+        <file>py.jpg</file>
+        <file>ql.jpg</file>
+        <file>right.jpg</file>
+        <file>road.jpg</file>
+        <file>sl.jpg</file>
+        <file>sy.jpg</file>
+        <file>tw1.jpg</file>
+        <file>tw2.jpg</file>
+        <file>up.jpg</file>
+    </qresource>
+</RCC>

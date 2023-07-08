@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/py.jpg</file>
+        <file>image/road.jpg</file>
+        <file>image/cgk.jpg</file>
+        <file>image/dby.jpg</file>
+        <file>image/dj.jpg</file>
+        <file>image/down.jpg</file>
+        <file>image/left.jpg</file>
+        <file>image/ql.jpg</file>
+        <file>image/right.jpg</file>
+        <file>image/sl.jpg</file>
+        <file>image/sy.jpg</file>
+        <file>image/up.jpg</file>
+        <file>image/Check_the_tower_effect.png</file>
+        <file>image/atw1.png</file>
+        <file>image/atw3.png</file>
+        <file>image/mtw1.png</file>
+        <file>image/mtw2.png</file>
+        <file>image/mtw3.png</file>
+        <file>image/gbl.png</file>
+        <file>image/ogre.png</file>
+        <file>image/m_arrow.png</file>
+        <file>image/arrow.png</file>
+        <file>image/orc.png</file>
+        <file>image/shaman.png</file>
+        <file>image/selection.png</file>
+        <file>image/atw2.png</file>
+        <file>image/poisioned.png</file>
+        <file>image/magic_splash.png</file>
+        <file>image/arrowHit.png</file>
+        <file>image/magicHit.png</file>
+        <file>image/bg.jpg</file>
+        <file>image/bgm.wav</file>
+        <file>image/bht1.ogg</file>
+        <file>image/ht1.ogg</file>
+        <file>image/ht1.wav</file>
+        <file>image/ht2.wav</file>
+    </qresource>
+</RCC>
