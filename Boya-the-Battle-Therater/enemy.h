@@ -1,7 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "multifilestructure.h"
-#include <QString>
 
 class Enemy : protected SFCB
 {
@@ -17,29 +16,28 @@ public:
     int getReward() const;
     int getWidth() const;
     int getHeight() const;
-    void setPoision();
-    void dePoision();
-    void Poision();
+    void setPoison();
+    void dePoison();
+    void Poison();
     Coor getCoor() const;
     QString getPicturePath() const;
-    QString getPoisionedPath() const;
+    QString getPoisonedPath() const;
     void decreaseHealth(int amount, int i);
-    bool isPoision() const;
+    bool isPoison() const;
 
 protected:
     int health;
     int ori_health;
-    int width, height;//宽和高
+    int width, height; //宽和高
     int armorType;
     int protectionLevel;
-    int speed;//每次循环敌人移动的像素数
+    int speed; //每次循环敌人移动的像素数
     QVector<Coor> enemyPathVec;     //敌人移动路径
     int damage;
     int reward;
-    bool poision;
-    int poision_counter;
-
+    bool poison;
+    int poison_counter;
+    QString picturePath;
 };
 
 #endif // ENEMY_H
-

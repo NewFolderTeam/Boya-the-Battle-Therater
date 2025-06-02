@@ -4,25 +4,21 @@
 #include <QWidget>
 #include <QPainter>         //画家类
 #include <QMouseEvent>      //鼠标事件
+#include "QtCore/qelapsedtimer.h"
 #include "selectionframe.h" //选择框
-#include "archertower1.h" //弓箭塔
-#include "archertower2.h"
-#include "archertower3.h"
-#include "magictower1.h" //法师塔
-#include "magictower2.h"
-#include "magictower3.h"
+#include "archertower.h"    //弓箭塔
+#include "magictower.h"     //法师塔
 #include "goblin.h"        //敌人哥布林
 #include "orc.h"           //敌人兽人
 #include "shaman.h"
 #include "ogre.h"
 #include <QLabel>           //标签控件
 #include <QSoundEffect>
-
+#include <QTimer>
 
 //游戏主界面类
 class GameWindow : public QWidget
 {
-//    Q_OBJECT
 public:
     GameWindow(int[][15],int level);    //构造
     ~GameWindow();
@@ -53,8 +49,16 @@ private:
     QVector<QVector<Coor> > enemyPathsVec;       //敌人路径数组
     QVector<Tower*> towerVec;  //防御塔数组
     QVector<Enemy*> enemyVec;  //敌人数组
-    QSoundEffect*se1;
-    QSoundEffect*se2;
+    QVector<HitEffect*> hitEffectVec;   // 命中效果数组
+    QSoundEffect*se1; // 音效1：弓箭塔命中音效
+    QSoundEffect*se2; // 音效2：魔法塔命中音效
+
+    // --- 音效播放控制变量 ---
+    QElapsedTimer lastSe1PlayTime; // 记录se1上次播放的时间
+    QElapsedTimer lastSe2PlayTime; // 记录se2上次播放的时间
+    const qint64 minSe1IntervalMs = 250; // 弓箭塔音效最小播放间隔，单位毫秒
+    const qint64 minSe2IntervalMs = 250; // 魔法塔音效最小播放间隔，单位毫秒
+
 protected:
     void paintEvent(QPaintEvent*);      //绘图事件
     void drawMap(QPainter&);            //画出地图
@@ -63,7 +67,6 @@ protected:
     void drawEnemy(QPainter&);          //画出敌人
     void drawBull(QPainter&);           //画出子弹
     void drawHitEffect(QPainter&);      //画出打击效果
-    void gameUpdate();
 
     void mousePressEvent(QMouseEvent*); //鼠标点击事件
 

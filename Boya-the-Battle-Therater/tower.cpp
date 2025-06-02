@@ -1,121 +1,66 @@
 #include "tower.h"
+#include "attack.h"
 #include <random>
-Tower::Tower(const int x,const int y) : SFCB(x,y)
-{
-    disCoorX = x, disCoorY = y;
+#include <algorithm>
+
+Tower::Tower(const int x, const int y) : SFCB(x, y) {
+    disCoorX = x;
+    disCoorY = y;
+    attack = nullptr; // 初始化 Attack 指针
+    // counter 的初始值，会在派生类的构造函数中调用 updateAttributesForLevel() 时设置
+    // 或者在派生类的构造函数中直接设置 `counter = attackInterval;`
+    // 这里保持默认值，因为它在派生类构造函数中会立即被 `updateAttributesForLevel` 覆盖
+    // 或者 Tower::counter 的默认初始值 0 (如果没有显式初始化)
 }
 
-QString Tower::getPicturePath() const//返回防御塔图片路径
-{
-    return picturePath;
+Tower::~Tower() {
+    delete attack; // 清理 Attack 对象
 }
 
-int Tower::getWidth() const     //返回防御塔宽
-{
-    return width;
+int Tower::getLevel() const { return level; }
+
+void Tower::levelUp() {
+    if (level < 3) { // 假设最高等级为3
+        level++;
+        updateAttributesForLevel(); // 调用纯虚函数，由派生类实现属性更新
+    }
 }
 
-int Tower::getHeight() const    //返回防御塔高
-{
-    return height;
-}
+int Tower::getAttackInterval() const { return attackInterval; }
+int Tower::getAttackPowerMin() const { return attackPowerMin; }
+int Tower::getAttackPowerMax() const { return attackPowerMax; }
+int Tower::getDamageType() const { return damageType; }
+int Tower::getAttackType() const { return attackType; }
+int Tower::getRange() const { return range; }
+int Tower::getCost() const { return cost; }
+int Tower::getUp() const { return up; } // 直接返回成员变量
+int Tower::getSellPrice() const { return sellPrice; } // 直接返回成员变量
+int Tower::getType() const { return type; }
+int Tower::getCounter() const { return counter; }
+void Tower::setCounter(const int _counter) { counter = _counter; }
 
-Enemy* Tower::getTargetEnemy() const      //返回目标敌人
-{
-    return targetEnemy;
-}
-
-int Tower::getAttackInterval() const
-{
-    return attackInterval;
-}
-
-int Tower::getAttackPowerMin() const
-{
-    return attackPowerMin;
-}
-
-int Tower::getAttackPowerMax() const
-{
-    return attackPowerMax;
-}
-
-int Tower::getDamageType() const
-{
-    return damageType;
-}
-
-int Tower::getAttackType() const
-{
-    return attackType;
-}
-
-int Tower::getRange() const
-{
-    return range;
-}
-
-int Tower::getCost() const
-{
-    return cost;
-}
-
-int Tower::getUp() const
-{
-    return up;
-}
-
-int Tower::getSellPrice() const
-{
-    return sellPrice;
-}
-
-int Tower::getType() const
-{
-    return type;
-}
-
-QVector<Coor> Tower::getAttackCoor() const  //返回攻击坐标
-{
-    QVector<Coor> tempAttackec;
-    for(auto bull : BulletVec)  //遍历子弹数组，把子弹数组的坐标全部给临时数组
-        tempAttackec.push_back(Coor(bull->x, bull->y));
-
-    return tempAttackec;    //返回
-}
-
-Coor Tower::getDisCoor() const        //返回防御塔显示坐标
-{
-    return Coor(disCoorX, disCoorY);
-}
-
-bool Tower::getRangeFlag() const      //返回显示范围标记
-{
-    return displayRangeFlag;
-}
-
-void Tower::setRangeFlag(const bool flag)      //设置显示范围标记
-{
-    displayRangeFlag = flag;
-}
-
-Coor Tower::getCoor() const      //返回防御塔坐标
-{
-    return Coor(x, y);
-}
-
-int Tower::attackPower() const
-{
-    // 生成随机整数作为攻击力
-    std::random_device rd;
-    std::mt19937 gen(rd());
+int Tower::attackPower() const {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dis(attackPowerMin, attackPowerMax);
-    int attackPower = dis(gen);
-    return attackPower;
+    return dis(gen);
 }
 
-void Tower::setTargetEnemyNull()
-{
-    targetEnemy = nullptr;
+QString Tower::getPicturePath() const { return picturePath; }
+int Tower::getHeight() const { return height; }
+int Tower::getWidth() const { return width; }
+Enemy* Tower::getTargetEnemy() const { return targetEnemy; }
+void Tower::setTargetEnemy(Enemy* enemy) { targetEnemy = enemy; } // 实现设置目标敌人
+void Tower::setTargetEnemyNull() { targetEnemy = nullptr; }
+
+QVector<Coor> Tower::getAttackCoor() const {
+    QVector<Coor> tempAttackec;
+    // 如果 Attack 类有获取子弹坐标的接口，可以在这里调用
+    // if (attack) { return attack->getBulletCoordinates(); }
+    return tempAttackec;
 }
 
+Coor Tower::getCoor() const { return Coor(x, y); }
+Coor Tower::getDisCoor() const { return Coor(disCoorX, disCoorY); }
+bool Tower::getRangeFlag() const { return displayRangeFlag; }
+void Tower::setRangeFlag(const bool flag) { displayRangeFlag = flag; }

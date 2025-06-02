@@ -15,8 +15,8 @@ Enemy::Enemy(QVector<Coor> &path, int health_,int armorType_, int protectionLeve
     width=w_;
     height=h_;
     enemyPathVec=path;
-    poision=false;
-    poision_counter=0;
+    poison=false;
+    poison_counter=0;
 }
 
 //敌人移动函数
@@ -68,9 +68,9 @@ QString Enemy::getPicturePath() const//返回图片路径
     return picturePath;
 }
 
-QString Enemy::getPoisionedPath() const
+QString Enemy::getPoisonedPath() const
 {
-    return ":/image/poisioned.png";
+    return ":/image/poisoned.png";
 }
 
 int Enemy::getWidth() const     //返回宽高
@@ -103,14 +103,14 @@ int Enemy::getProtectionLevel() const
     return protectionLevel;
 }
 
-void Enemy::setPoision()
+void Enemy::setPoison()
 {
-    poision=true;
+    poison=true;
 }
 
-void Enemy::dePoision()
+void Enemy::dePoison()
 {
-    poision=false;
+    poison=false;
 }
 
 int Enemy::getSpeed() const
@@ -128,45 +128,45 @@ int Enemy::getReward() const
     return reward;
 }
 
-bool Enemy::isPoision() const
+bool Enemy::isPoison() const
 {
-    return poision;
+    return poison;
 }
 
 void Enemy::decreaseHealth(int amount,int i)
 {
     if(armorType!=i||protectionLevel==0){
-    health -= amount;
+        health -= amount;
     }
     else if(protectionLevel==1){
-    health -= amount*0.7;
+        health -= amount*0.7;
     }
     else if(protectionLevel==2){
-    health -= amount*0.5;
+        health -= amount*0.5;
     }
     else if(protectionLevel==3){
-    health -= amount*0.2;
+        health -= amount*0.2;
     }
     if (health < 0)
         health = 0;
 }
 
-void Enemy::Poision()
+void Enemy::Poison()
 {
     if(armorType==2){
         if(protectionLevel==1)
-        health -= ori_health*0.03;
+            health -= ori_health*0.03;
         else if(protectionLevel==2)
-        health -= ori_health*0.02;
+            health -= ori_health*0.02;
         else if(protectionLevel==3)
-        health -= ori_health*0.01;
+            health -= ori_health*0.01;
     }
     else health -= ori_health*0.04;
     if (health < 0)
         health = 0;
-    poision_counter++;
-    if(poision_counter>=7){
-        poision_counter=0;
-        poision=false;
+    poison_counter++;
+    if(poison_counter>=8){
+        poison_counter=0;
+        poison=false;
     }
 }

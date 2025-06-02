@@ -15,39 +15,23 @@ include_directories(
 )
 
 set (SRCS
-    archertower1.cpp
-    archertower1.h
-    archertower2.cpp
-    archertower2.h
-    archertower3.cpp
-    archertower3.h
-    enemy.cpp
-    enemy.h
-    gamewindow.cpp
-    gamewindow.h
+    archertower.h archertower.cpp
+    areaattack.h areaattack.cpp
+    attack.h
+    enemy.h enemy.cpp
+    gamewindow.h gamewindow.cpp
     generatepath.h
-    goblin.cpp
-    goblin.h
-    magictower1.cpp
-    magictower1.h
-    magictower2.cpp
-    magictower2.h
-    magictower3.cpp
-    magictower3.h
+    goblin.h goblin.cpp
+    magictower.h magictower.cpp
     main.cpp
-    ogre.cpp
-    ogre.h
     multifilestructure.h
-    orc.cpp
-    orc.h
-    selectionframe.cpp
-    selectionframe.h
-    startwindow.cpp
-    startwindow.h
-    shaman.cpp
-    shaman.h
-    tower.cpp
-    tower.h
+    ogre.h ogre.cpp
+    orc.h orc.cpp
+    selectionframe.h selectionframe.cpp
+    singletargetattack.h singletargetattack.cpp
+    startwindow.h startwindow.cpp
+    shaman.h shaman.cpp
+    tower.h tower.cpp
     towerposition.h
     ui_startwindow.h
     resource.qrc

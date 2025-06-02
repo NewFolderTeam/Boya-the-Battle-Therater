@@ -1,36 +1,47 @@
+// multifilestructure.h
 #ifndef MULTIFILESTRUCTURE_H
 #define MULTIFILESTRUCTURE_H
-//多文件使用的结构和全局函数
 
 #include <QString>
 #include <QVector>
 
-constexpr int mapBlockLen = 80;    //地图块边长
-constexpr int halfBlockLen = mapBlockLen >> 1;  //地图块边长的一半
+// 基础坐标类 (SFCB: Simple Fixed Coordinate Base)
+class SFCB {
+public:
+    SFCB(int x_ = 0, int y_ = 0) : x(x_), y(y_) {}
 
-//坐标结构
-struct Coor
-{
+    // 提供 getter 方便外部访问，如果需要的话
+    int getX() const { return x; }
+    int getY() const { return y; }
+    QString picturePath; // 子弹的图片路径
+    int x, y; // 坐标
+};
+
+// Coor 结构体
+struct Coor {
     int x, y;
-
-    Coor(const int x = 0, const int y = 0) : x(x), y(y) {}
+    Coor(int _x = 0, int _y = 0) : x(_x), y(_y) {}
 };
 
-//坐标和图片路径结构
-struct SFCB : public Coor
-{
-    QString picturePath;    //图片路径
-
-    SFCB() {}
-    SFCB(const int x, const int y, const QString path = "") : Coor(x, y), picturePath(path) {}
-};
-
-struct HitEffect : public Coor      //命中效果结构
-{
+// HitEffect 结构体
+struct HitEffect : public Coor {
     int width, height;
-    int index = 1;
-    int type = 0;
-    HitEffect(int x, int y, int width, int height, int type_) : Coor(x, y), width(width), height(height), type(type_) {}
+    int type;  // 1: 弓箭命中，2: 魔法命中，3: 魔法溅射
+    int index; // 用于动画帧
+    HitEffect(int _x, int _y, int w, int h, int t)
+        : Coor(_x, _y), width(w), height(h), type(t), index(0) {}
 };
+
+// BulletEffect 结构体，用于绘制子弹/法术效果
+struct BulletEffect : public Coor {
+    int width, height;
+    QString picturePath; // 子弹的图片路径
+    BulletEffect(int _x, int _y, int w, int h, const QString& path)
+        : Coor(_x, _y), width(w), height(h), picturePath(path) {}
+};
+
+// 定义地图块长度，作为常量
+const int mapBlockLen = 80;
+const int halfBlockLen = mapBlockLen >> 1; // 40
 
 #endif // MULTIFILESTRUCTURE_H
